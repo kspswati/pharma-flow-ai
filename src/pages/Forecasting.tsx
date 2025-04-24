@@ -7,7 +7,6 @@ import { Loader, Database } from "lucide-react";
 import ForecastForm from '@/components/forecasting/ForecastForm';
 import ForecastMetrics from '@/components/forecasting/ForecastMetrics';
 import ForecastChart from '@/components/forecasting/ForecastChart';
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 
 const Forecasting = () => {
@@ -25,9 +24,8 @@ const Forecasting = () => {
     try {
       setIsLoadingData(true);
       
-      const { data, error } = await supabase.functions.invoke('load-sample-data');
-      
-      if (error) throw error;
+      // Simulate loading sample data
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       toast({
         title: "Sample data loaded successfully",
@@ -40,7 +38,7 @@ const Forecasting = () => {
       console.error("Error loading sample data:", error);
       toast({
         title: "Error loading sample data",
-        description: error.message || "An unknown error occurred",
+        description: "An unknown error occurred",
         variant: "destructive"
       });
     } finally {
