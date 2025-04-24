@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, Upload, Check } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import * as XLSX from 'xlsx';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface PreviewData {
   headers: string[];
@@ -31,12 +33,41 @@ export const ExcelUploadPreview = () => {
     }
     
     setFile(file);
-    // In a real implementation, we would parse the Excel file here
-    // and show a preview of the data
+    
+    // Parse Excel file
+    try {
+      const data = await file.arrayBuffer();
+      const workbook = XLSX.read(data);
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      
+      if (jsonData.length < 2) {
+        throw new Error("Excel file must contain at least headers and one row of data");
+      }
+
+      setPreviewData({
+        headers: jsonData[0] as string[],
+        rows: jsonData.slice(1) as any[]
+      });
+
+      toast({
+        title: "File loaded successfully",
+        description: `Found ${jsonData.length - 1} rows of data`,
+      });
+    } catch (error) {
+      console.error("Error parsing Excel file:", error);
+      toast({
+        title: "Error parsing file",
+        description: error instanceof Error ? error.message : "Failed to parse Excel file",
+        variant: "destructive"
+      });
+      setFile(null);
+      setPreviewData(null);
+    }
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file || !previewData) return;
     
     try {
       setIsUploading(true);
@@ -87,13 +118,34 @@ export const ExcelUploadPreview = () => {
             </div>
           </div>
           
-          {file && (
+          {previewData && (
             <div className="space-y-4">
-              <div className="bg-slate-50 p-3 rounded-md">
-                <div className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-5 w-5 text-slate-600" />
-                  <span className="text-sm font-medium">{file.name}</span>
-                </div>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      {previewData.headers.map((header, index) => (
+                        <TableHead key={index}>{header}</TableHead>
+                      ))}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {previewData.rows.slice(0, 5).map((row, rowIndex) => (
+                      <TableRow key={rowIndex}>
+                        {previewData.headers.map((_, colIndex) => (
+                          <TableCell key={colIndex}>
+                            {row[colIndex]}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                {previewData.rows.length > 5 && (
+                  <div className="p-2 text-center text-sm text-muted-foreground">
+                    Showing first 5 rows of {previewData.rows.length} total rows
+                  </div>
+                )}
               </div>
               
               <Button
