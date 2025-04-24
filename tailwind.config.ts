@@ -41,6 +41,16 @@ export default {
 					800: '#075985',
 					900: '#0c4a6e',
 				},
+				pastel: {
+					green: '#F2FCE2',
+					yellow: '#FEF7CD',
+					orange: '#FEC6A1',
+					purple: '#E5DEFF',
+					pink: '#FFDEE2',
+					peach: '#FDE1D3',
+					blue: '#D3E4FD',
+					gray: '#F1F0FB',
+				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'

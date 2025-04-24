@@ -14,15 +14,19 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
+    /* Updated Primary color to soft blue */
     --primary: 199 89% 48%;
     --primary-foreground: 210 40% 98%;
 
+    /* Updated Secondary color to soft teal */
     --secondary: 187 100% 42%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
+    /* Softer muted color */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
+    /* Set accent to match secondary for consistency */
     --accent: 187 100% 42%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
@@ -35,6 +39,7 @@
 
     --radius: 0.5rem;
 
+    /* Sidebar colors */
     --sidebar-background: 199 89% 12%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 187 100% 42%;
@@ -46,6 +51,7 @@
   }
 
   .dark {
+    /* Updated dark theme with softer pastel-inspired tones */
     --background: 199 89% 10%;
     --foreground: 210 40% 98%;
 
@@ -55,9 +61,11 @@
     --popover: 199 89% 12%;
     --popover-foreground: 210 40% 98%;
 
+    /* Softer blue for primary in dark mode */
     --primary: 199 89% 48%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
+    /* Softer teal for secondary in dark mode */
     --secondary: 187 100% 42%;
     --secondary-foreground: 210 40% 98%;
 
@@ -94,13 +102,22 @@
   @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
 }
 
+/* Add new pastel-inspired utility classes */
+.pastel-card {
+  @apply bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-slate-900 shadow-md border border-slate-200 dark:border-slate-700;
+}
+
+.pastel-button {
+  @apply bg-gradient-to-r from-pharma-400 to-secondary hover:from-pharma-500 hover:to-secondary/90;
+}
+
 @layer components {
   .stat-card {
-    @apply p-6 rounded-lg bg-white shadow-md border border-border flex flex-col space-y-2;
+    @apply p-6 rounded-lg bg-white shadow-md border border-border flex flex-col space-y-2 dark:bg-card;
   }
   
   .stat-value {
-    @apply text-3xl font-bold text-pharma-600;
+    @apply text-3xl font-bold text-pharma-600 dark:text-pharma-400;
   }
   
   .stat-label {
