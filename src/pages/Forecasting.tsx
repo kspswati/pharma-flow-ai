@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,8 +8,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { ChartContainer } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
-// Mock data for demonstration
 const locations = ["United States", "India", "Germany", "Japan", "Brazil", "United Kingdom"];
 const products = ["Amoxicillin", "Lipitor", "Metformin", "Advil", "Prozac", "Insulin"];
 
@@ -33,10 +33,10 @@ const Forecasting = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [forecastValue, setForecastValue] = useState<string>("10000");
+  const [forecastPeriod, setForecastPeriod] = useState<string>("monthly");
   const [showResults, setShowResults] = useState<boolean>(false);
   
   const handleForecast = () => {
-    // In a real app, this would call an API or trigger a model
     setShowResults(true);
   };
   
@@ -76,20 +76,48 @@ const Forecasting = () => {
               </Select>
             </div>
             
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Forecast Value (units)</label>
-              <div className="flex gap-2">
-                <Input 
-                  type="number" 
-                  value={forecastValue} 
-                  onChange={(e) => setForecastValue(e.target.value)}
-                />
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <label className="text-sm font-medium">Target Production Volume</label>
+                <TooltipProvider>
+                  <UITooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-[300px]">
+                      <p>Enter the target number of units you plan to produce. This value helps calculate optimal production levels based on predicted demand.</p>
+                    </TooltipContent>
+                  </UITooltip>
+                </TooltipProvider>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex gap-2">
+                  <Input 
+                    type="number"
+                    min="0"
+                    value={forecastValue} 
+                    onChange={(e) => setForecastValue(e.target.value)}
+                    placeholder="Enter target units"
+                    className="flex-1"
+                  />
+                  <Select value={forecastPeriod} onValueChange={setForecastPeriod}>
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="monthly">Per Month</SelectItem>
+                      <SelectItem value="quarterly">Per Quarter</SelectItem>
+                      <SelectItem value="annually">Per Year</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 <Button 
                   onClick={handleForecast} 
-                  disabled={!selectedLocation || !selectedProduct}
-                  className="bg-pharma-600 hover:bg-pharma-700"
+                  disabled={!selectedLocation || !selectedProduct || !forecastValue}
+                  className="w-full bg-pharma-600 hover:bg-pharma-700"
                 >
-                  Generate
+                  Generate Forecast
                 </Button>
               </div>
             </div>
