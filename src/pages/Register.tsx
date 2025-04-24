@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { LogIn } from "lucide-react";
 import { useAuth } from '@/hooks/useAuth';
+import { toast } from "@/components/ui/use-toast";
 
 const Register = () => {
   const navigate = useNavigate();
