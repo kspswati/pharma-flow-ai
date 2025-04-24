@@ -32,80 +32,88 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-muted/30">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-slate-950">
       <div className="w-full max-w-md">
-        <Card className="pastel-card">
+        <Card className="bg-slate-900 border-slate-800 text-slate-100">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl font-bold text-white">Create an account</CardTitle>
+            <CardDescription className="text-slate-400">
               Enter your information to get started with PharmaFlow AI
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName" className="text-slate-200">First Name</Label>
                 <Input 
                   id="firstName" 
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John" 
-                  required 
+                  required
+                  className="bg-slate-800 border-slate-700 text-slate-100 placeholder:text-slate-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName" className="text-slate-200">Last Name</Label>
                 <Input 
                   id="lastName" 
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe" 
-                  required 
+                  required
+                  className="bg-slate-800 border-slate-700 text-slate-100 placeholder:text-slate-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-slate-200">Email</Label>
                 <Input 
                   id="email" 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com" 
-                  required 
+                  required
+                  className="bg-slate-800 border-slate-700 text-slate-100 placeholder:text-slate-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-slate-200">Password</Label>
                 <Input 
                   id="password" 
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required 
+                  required
+                  className="bg-slate-800 border-slate-700 text-slate-100"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className="text-slate-200">Confirm Password</Label>
                 <Input 
                   id="confirmPassword" 
                   type="password" 
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  required 
+                  required
+                  className="bg-slate-800 border-slate-700 text-slate-100"
                 />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-3">
-              <Button type="submit" className="w-full bg-pharma-600 hover:bg-pharma-700">
+              <Button 
+                type="submit" 
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+              >
                 <LogIn className="mr-2 h-4 w-4" />
                 Create Account
               </Button>
-              <div className="text-center text-sm text-muted-foreground mt-2">
+              <div className="text-center text-sm text-slate-400 mt-2">
                 Already have an account?{" "}
                 <Button 
                   variant="link" 
                   onClick={() => navigate('/login')} 
-                  className="text-pharma-600 hover:text-pharma-700 p-0"
+                  className="text-blue-400 hover:text-blue-300 p-0"
                 >
                   Sign in
                 </Button>
