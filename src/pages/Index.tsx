@@ -5,9 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatInterface from '@/components/ui/chatbot/ChatInterface';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Index = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -26,15 +28,22 @@ const Index = () => {
                   PharmaFlow AI connects manufacturers and customers with powerful insights about products, distribution efficiency, pricing, and demand.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-pharma-600 hover:bg-pharma-700">
-                    <Link to="/dashboard">
-                      Get Started
-                    </Link>
+                  <Button 
+                    size="lg" 
+                    className="bg-pharma-600 hover:bg-pharma-700"
+                    onClick={() => navigate('/register')}
+                  >
+                    Get Started
                   </Button>
-                  <Button variant="outline" size="lg">
-                    <Link to="#learn-more">
-                      Learn More
-                    </Link>
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    onClick={() => {
+                      const element = document.getElementById('learn-more');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    Learn More
                   </Button>
                 </div>
               </div>
@@ -152,12 +161,19 @@ const Index = () => {
               Join leading pharmaceutical companies already using PharmaFlow AI to transform their manufacturing and distribution processes.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="secondary" size="lg">
-                <Link to="/dashboard">
-                  Explore Dashboard
-                </Link>
+              <Button 
+                variant="secondary" 
+                size="lg"
+                onClick={() => navigate('/dashboard')}
+              >
+                Explore Dashboard
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-white text-white hover:bg-white/10"
+                onClick={() => navigate('/register')}
+              >
                 Contact Sales
               </Button>
             </div>

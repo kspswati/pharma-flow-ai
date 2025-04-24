@@ -1,11 +1,13 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from '../icons/Logo';
 import { ThemeToggle } from '../theme/ThemeToggle';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -28,10 +30,19 @@ const Header = () => {
         
         <div className="flex items-center space-x-2">
           <ThemeToggle />
-          <Button variant="outline" size="sm" className="hidden md:flex">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="hidden md:flex"
+            onClick={() => navigate("/login")}
+          >
             Login
           </Button>
-          <Button size="sm" className="bg-pharma-600 hover:bg-pharma-700">
+          <Button 
+            size="sm" 
+            className="bg-pharma-600 hover:bg-pharma-700"
+            onClick={() => navigate("/register")}
+          >
             Get Started
           </Button>
         </div>
