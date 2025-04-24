@@ -7,6 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import Forecasting from "./pages/Forecasting";
+import Pricing from "./pages/Pricing";
+import CountryAnalysis from "./pages/CountryAnalysis";
+import DataManagement from "./pages/DataManagement";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +23,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/forecasting" element={<Forecasting />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/country-analysis" element={<CountryAnalysis />} />
+          <Route path="/data-management" element={<DataManagement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
