@@ -13,6 +13,7 @@ import Forecasting from "./pages/Forecasting";
 import Pricing from "./pages/Pricing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DataImport from "./pages/DataImport";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/data-import" element={<DataImport />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
