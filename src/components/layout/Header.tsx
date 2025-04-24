@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Logo from '../icons/Logo';
+import { ThemeToggle } from '../theme/ThemeToggle';
 
 const Header = () => {
   return (
@@ -26,6 +27,7 @@ const Header = () => {
         </nav>
         
         <div className="flex items-center space-x-2">
+          <ThemeToggle />
           <Button variant="outline" size="sm" className="hidden md:flex">
             Login
           </Button>
