@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, BarChart3, TrendingUp, Globe, Database, MessageSquare } from "lucide-react";
+import { Home, BarChart3, TrendingUp, Globe, Database } from "lucide-react";
 import { Link, useLocation } from 'react-router-dom';
 
 interface MainLayoutProps {
@@ -24,7 +24,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description })
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col w-full">
       <Header />
       
       <div className="flex flex-1">
