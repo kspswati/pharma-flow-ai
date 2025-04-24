@@ -14,17 +14,14 @@ const Header = () => {
           <Link to="/" className="text-sm font-medium transition-colors hover:text-pharma-600">
             Home
           </Link>
-          <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
-            Dashboard
-          </Link>
           <Link to="/forecasting" className="text-sm font-medium transition-colors hover:text-pharma-600">
             Forecasting
           </Link>
           <Link to="/pricing" className="text-sm font-medium transition-colors hover:text-pharma-600">
             Pricing
           </Link>
-          <Link to="/visualization" className="text-sm font-medium transition-colors hover:text-pharma-600">
-            Visualization
+          <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
+            Dashboard
           </Link>
         </nav>
         

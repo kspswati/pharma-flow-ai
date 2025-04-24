@@ -1,9 +1,8 @@
-
 import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, BarChart3, TrendingUp, Globe, Database } from "lucide-react";
+import { Home, BarChart3, TrendingUp, LayoutDashboard } from "lucide-react";
 import { Link, useLocation } from 'react-router-dom';
 
 interface MainLayoutProps {
@@ -16,11 +15,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description })
   const location = useLocation();
   
   const menuItems = [
-    { title: "Dashboard", url: "/dashboard", icon: Home },
+    { title: "Home", url: "/", icon: Home },
     { title: "Demand Forecasting", url: "/forecasting", icon: BarChart3 },
     { title: "Price Prediction", url: "/pricing", icon: TrendingUp },
-    { title: "Country Analysis", url: "/country-analysis", icon: Globe },
-    { title: "Data Management", url: "/data-management", icon: Database },
+    { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   ];
 
   return (
