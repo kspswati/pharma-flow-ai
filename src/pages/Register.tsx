@@ -32,8 +32,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30">
-      <div className="container max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-muted/30">
+      <div className="w-full max-w-md">
         <Card className="pastel-card">
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
