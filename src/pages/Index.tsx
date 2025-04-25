@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatInterface from '@/components/ui/chatbot/ChatInterface';
 import { Link, useNavigate } from 'react-router-dom';
+import { BarChart3, TrendingUp } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -19,47 +19,30 @@ const Index = () => {
         <section className="relative py-20 overflow-hidden bg-background">
           <div className="absolute inset-0 bg-pharma-pattern"></div>
           <div className="container px-4 mx-auto relative z-10">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-1/2 md:pr-12">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="gradient-text">Data-Driven</span> Pharmaceutical Optimization
-                </h1>
-                <p className="text-lg text-muted-foreground mb-8">
-                  PharmaFlow AI connects manufacturers and customers with powerful insights about products, distribution efficiency, pricing, and demand.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-pharma-600 hover:bg-pharma-700"
-                    onClick={() => navigate('/register')}
-                  >
-                    Get Started
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    onClick={() => {
-                      const element = document.getElementById('learn-more');
-                      element?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    Learn More
-                  </Button>
-                </div>
-              </div>
-              <div className="md:w-1/2 mt-10 md:mt-0">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-pharma-600/20 to-secondary/20 rounded-lg blur-lg"></div>
-                  <Card className="relative overflow-hidden border-2 shadow-xl">
-                    <CardContent className="p-1">
-                      <img 
-                        src="https://placehold.co/600x400/EEE/31343C?text=Dashboard+Preview" 
-                        alt="Dashboard Preview" 
-                        className="rounded w-full h-auto"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="gradient-text">Data-Driven</span> Pharmaceutical Optimization
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                PharmaFlow AI connects manufacturers and customers with powerful insights about products, distribution efficiency, pricing, and demand.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
+                  onClick={() => navigate('/forecasting')}
+                >
+                  <BarChart3 className="h-5 w-5" />
+                  Demand Forecast
+                </Button>
+                <Button 
+                  size="lg"
+                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
+                  onClick={() => navigate('/pricing')}
+                >
+                  <TrendingUp className="h-5 w-5" />
+                  Price Prediction
+                </Button>
               </div>
             </div>
           </div>
@@ -164,17 +147,20 @@ const Index = () => {
               <Button 
                 variant="secondary" 
                 size="lg"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/forecasting')}
+                className="flex items-center gap-2"
               >
-                Explore Dashboard
+                <BarChart3 className="h-5 w-5" />
+                Try Demand Forecasting
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white text-white hover:bg-white/10"
-                onClick={() => navigate('/register')}
+                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                onClick={() => navigate('/pricing')}
               >
-                Contact Sales
+                <TrendingUp className="h-5 w-5" />
+                Explore Price Prediction
               </Button>
             </div>
           </div>
