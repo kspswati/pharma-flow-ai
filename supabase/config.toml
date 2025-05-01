@@ -1,16 +1,7 @@
 
+# This file was created by Lovable
+
 project_id = "jmtbapnwjlwluqkzurnj"
 
-[api]
-enabled = true
-port = 54321
-schemas = ["public", "storage"]
-
-[db]
-port = 54322
-
-[studio]
-port = 54323
-
 [functions.load-sample-data]
-verify_jwt = true
+verify_jwt = false

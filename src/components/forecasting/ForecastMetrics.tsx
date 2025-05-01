@@ -1,58 +1,83 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface ForecastMetricsProps {
-  product: string;
-  location: string;
+  product?: string;
+  location?: string;
+  metrics?: {
+    mape?: number;
+    rmse?: number;
+    reliability?: number;
+    accuracy?: string;
+  };
 }
 
-const ForecastMetrics: React.FC<ForecastMetricsProps> = ({ product, location }) => {
+const ForecastMetrics: React.FC<ForecastMetricsProps> = ({ 
+  product, 
+  location,
+  metrics = {}
+}) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Forecast Metrics for {product} in {location}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Metric</TableHead>
-              <TableHead>Value</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">Lead Time</TableCell>
-              <TableCell>14 days</TableCell>
-              <TableCell className="text-green-600">Normal</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">Available Quantity</TableCell>
-              <TableCell>8,500 units</TableCell>
-              <TableCell className="text-amber-600">Below Forecast</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">Manufacturing Location</TableCell>
-              <TableCell>Berlin, Germany</TableCell>
-              <TableCell>Primary Facility</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">Forecast Accuracy (Last Period)</TableCell>
-              <TableCell>92%</TableCell>
-              <TableCell className="text-green-600">Good</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">Safety Stock</TableCell>
-              <TableCell>2,000 units</TableCell>
-              <TableCell className="text-green-600">Adequate</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {product ? `Forecast Metrics for ${product}` : 'Forecast Metrics'}
+            {location ? ` in ${location}` : ''}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-muted/40 p-4 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-1">Forecast Accuracy</div>
+              <div className="text-2xl font-bold">{metrics.accuracy || "Not available"}</div>
+            </div>
+            <div className="bg-muted/40 p-4 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-1">MAPE</div>
+              <div className="text-2xl font-bold">{metrics.mape ? `${metrics.mape}%` : "N/A"}</div>
+              <div className="text-xs text-muted-foreground">(Mean Absolute Percentage Error)</div>
+            </div>
+            <div className="bg-muted/40 p-4 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-1">RMSE</div>
+              <div className="text-2xl font-bold">{metrics.rmse || "N/A"}</div>
+              <div className="text-xs text-muted-foreground">(Root Mean Square Error)</div>
+            </div>
+            <div className="bg-muted/40 p-4 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-1">Reliability Score</div>
+              <div className="text-2xl font-bold">{metrics.reliability ? `${metrics.reliability}%` : "N/A"}</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>Interpretation</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            {metrics.mape ? 
+              `This forecast has a Mean Absolute Percentage Error (MAPE) of ${metrics.mape}%, which indicates ${
+                metrics.mape < 10 ? 'excellent' : metrics.mape < 20 ? 'good' : metrics.mape < 30 ? 'moderate' : 'low'
+              } forecast accuracy.` :
+              "Forecast metrics are not available for interpretation."
+            }
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            {metrics.reliability ?
+              `The forecast reliability score is ${metrics.reliability}%, which suggests ${
+                metrics.reliability > 80 ? 'high' : metrics.reliability > 60 ? 'moderate' : 'low'
+              } confidence in these predictions.` :
+              ""
+            }
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Use these metrics to guide inventory planning and resource allocation.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

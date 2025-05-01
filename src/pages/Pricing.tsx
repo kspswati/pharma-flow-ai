@@ -1,109 +1,129 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
-
-// Mock data for demonstration
-const locations = ["United States", "India", "Germany", "Japan", "Brazil", "United Kingdom"];
-const products = ["Amoxicillin", "Lipitor", "Metformin", "Advil", "Prozac", "Insulin"];
-
-const manufacturersData = [
-  { id: 1, name: "Pharma Co. Ltd", price: 42.50, trend: "+2.1%", location: "Germany", leadTime: "12 days" },
-  { id: 2, name: "MediGen Inc.", price: 38.75, trend: "-1.3%", location: "United States", leadTime: "14 days" },
-  { id: 3, name: "BioHealth", price: 40.20, trend: "+0.8%", location: "India", leadTime: "18 days" },
-  { id: 4, name: "PharmaGlobal", price: 43.10, trend: "+3.5%", location: "Switzerland", leadTime: "10 days" },
-  { id: 5, name: "RxMakers", price: 37.60, trend: "-2.1%", location: "Japan", leadTime: "15 days" },
-];
-
-const priceHistoryData = [
-  { month: 'Jan', price: 35.2 },
-  { month: 'Feb', price: 36.5 },
-  { month: 'Mar', price: 38.1 },
-  { month: 'Apr', price: 39.4 },
-  { month: 'May', price: 41.2 },
-  { month: 'Jun', price: 40.8 },
-  { month: 'Jul', price: 42.5 },
-  { month: 'Aug', price: 42.1 },
-  { month: 'Sep', price: 43.6 },
-  { month: 'Oct', price: 44.2 },
-  { month: 'Nov', price: 43.8 },
-  { month: 'Dec', price: 45.1 },
-];
-
-const manufacturerComparisonData = [
-  { name: "Pharma Co. Ltd", q1: 41.2, q2: 42.1, q3: 42.5, q4: 43.8 },
-  { name: "MediGen Inc.", q1: 39.8, q2: 38.9, q3: 38.7, q4: 39.1 },
-  { name: "BioHealth", q1: 40.5, q2: 40.1, q3: 40.2, q4: 41.3 },
-  { name: "PharmaGlobal", q1: 42.1, q2: 42.5, q3: 43.1, q4: 43.8 },
-  { name: "RxMakers", q1: 38.2, q2: 37.8, q3: 37.6, q4: 38.1 },
-];
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Loader } from 'lucide-react';
+import { fetchFilterOptions } from '@/services/dataService';
+import { generatePricingAnalysis } from '@/services/pricingService';
+import { toast } from '@/components/ui/use-toast';
+import PricingPredictor from '@/components/pricing/PricingPredictor';
 
 const Pricing = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [locations, setLocations] = useState<string[]>([]);
+  const [products, setProducts] = useState<string[]>([]);
+  const [pricingData, setPricingData] = useState<any>(null);
   
-  const handleSearch = () => {
-    // In a real app, this would call an API to get the data
-    setShowResults(true);
+  // Fetch filter options when component mounts
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const filterOptions = await fetchFilterOptions();
+        setLocations(filterOptions.countries);
+        setProducts(filterOptions.productGroups);
+      } catch (error) {
+        console.error("Error fetching filter options:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load filter options",
+          variant: "destructive"
+        });
+      }
+    };
+    
+    fetchFilters();
+  }, []);
+  
+  const handleSearch = async () => {
+    try {
+      setIsLoading(true);
+      
+      const result = await generatePricingAnalysis(
+        selectedProduct,
+        selectedLocation
+      );
+      
+      setPricingData(result);
+      setShowResults(true);
+    } catch (error) {
+      console.error("Error generating pricing analysis:", error);
+      toast({
+        title: "Pricing Analysis Error",
+        description: error instanceof Error ? error.message : "Failed to generate pricing analysis",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (
     <MainLayout title="Price Prediction" description="Analyze and forecast pharmaceutical product pricing">
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Search Parameters</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Location</label>
-              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select location" />
-                </SelectTrigger>
-                <SelectContent>
-                  {locations.map(location => (
-                    <SelectItem key={location} value={location}>{location}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Product</label>
-              <Select value={selectedProduct} onValueChange={setSelectedProduct}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select product" />
-                </SelectTrigger>
-                <SelectContent>
-                  {products.map(product => (
-                    <SelectItem key={product} value={product}>{product}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-medium">&nbsp;</label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Search Parameters</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Location</label>
+                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {locations.map(location => (
+                      <SelectItem key={location} value={location}>{location}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Product</label>
+                <Select value={selectedProduct} onValueChange={setSelectedProduct}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select product" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {products.map(product => (
+                      <SelectItem key={product} value={product}>{product}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <Button 
                 onClick={handleSearch} 
-                disabled={!selectedLocation || !selectedProduct}
+                disabled={!selectedLocation || !selectedProduct || isLoading}
                 className="w-full bg-pharma-600 hover:bg-pharma-700"
               >
-                Search Manufacturers
+                {isLoading ? (
+                  <>
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  "Search Manufacturers"
+                )}
               </Button>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+        
+        <PricingPredictor />
+      </div>
       
-      {showResults && (
+      {showResults && pricingData && (
         <>
           <Card className="mb-6">
             <CardHeader>
@@ -121,7 +141,7 @@ const Pricing = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {manufacturersData.sort((a, b) => a.price - b.price).map(manufacturer => (
+                  {pricingData.manufacturerList.sort((a: any, b: any) => a.price - b.price).map((manufacturer: any) => (
                     <TableRow key={manufacturer.id}>
                       <TableCell className="font-medium">{manufacturer.name}</TableCell>
                       <TableCell>${manufacturer.price.toFixed(2)}</TableCell>
@@ -152,7 +172,7 @@ const Pricing = () => {
                   <div className="h-[400px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart
-                        data={priceHistoryData}
+                        data={pricingData.trends}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" />
@@ -189,7 +209,7 @@ const Pricing = () => {
                   <div className="h-[400px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
-                        data={manufacturerComparisonData}
+                        data={pricingData.manufacturerComparison}
                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" />

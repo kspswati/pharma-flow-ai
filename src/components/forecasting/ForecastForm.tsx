@@ -1,19 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
-const locations = ["United States", "India", "Germany", "Japan", "Brazil", "United Kingdom"];
-const products = ["Amoxicillin", "Lipitor", "Metformin", "Advil", "Prozac", "Insulin"];
-const timeFrames = [
-  "Next 2 months",
-  "Next 3 months",
-  "Q2 2025",
-  "Q3 2025",
-  "Q4 2025",
-  "Full Year 2025"
-];
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader } from 'lucide-react';
 
 interface ForecastFormProps {
   onSubmit: () => void;
@@ -23,6 +13,9 @@ interface ForecastFormProps {
   setSelectedLocation: (location: string) => void;
   setSelectedProduct: (product: string) => void;
   setSelectedTimeFrame: (timeFrame: string) => void;
+  locations?: string[];
+  products?: string[];
+  isLoading?: boolean;
 }
 
 const ForecastForm: React.FC<ForecastFormProps> = ({
@@ -33,63 +26,102 @@ const ForecastForm: React.FC<ForecastFormProps> = ({
   setSelectedLocation,
   setSelectedProduct,
   setSelectedTimeFrame,
+  locations = [],
+  products = [],
+  isLoading = false
 }) => {
   return (
-    <Card className="mb-6">
+    <Card className="mb-8">
       <CardHeader>
-        <CardTitle>Forecast Parameters</CardTitle>
+        <CardTitle>Select Forecast Parameters</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Location</label>
-            <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-              <SelectTrigger>
+            <label htmlFor="location" className="text-sm font-medium">Location</label>
+            <Select
+              value={selectedLocation}
+              onValueChange={setSelectedLocation}
+              disabled={isLoading}
+            >
+              <SelectTrigger id="location">
                 <SelectValue placeholder="Select location" />
               </SelectTrigger>
               <SelectContent>
-                {locations.map(location => (
-                  <SelectItem key={location} value={location}>{location}</SelectItem>
-                ))}
+                {locations.length > 0 ? (
+                  locations.map((location) => (
+                    <SelectItem key={location} value={location}>
+                      {location}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="default" disabled>
+                    No locations available
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium">Product</label>
-            <Select value={selectedProduct} onValueChange={setSelectedProduct}>
-              <SelectTrigger>
+            <label htmlFor="product" className="text-sm font-medium">Product</label>
+            <Select
+              value={selectedProduct}
+              onValueChange={setSelectedProduct}
+              disabled={isLoading}
+            >
+              <SelectTrigger id="product">
                 <SelectValue placeholder="Select product" />
               </SelectTrigger>
               <SelectContent>
-                {products.map(product => (
-                  <SelectItem key={product} value={product}>{product}</SelectItem>
-                ))}
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <SelectItem key={product} value={product}>
+                      {product}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="default" disabled>
+                    No products available
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium">Time Frame</label>
-            <Select value={selectedTimeFrame} onValueChange={setSelectedTimeFrame}>
-              <SelectTrigger>
+            <label htmlFor="time-frame" className="text-sm font-medium">Time Frame</label>
+            <Select
+              value={selectedTimeFrame}
+              onValueChange={setSelectedTimeFrame}
+              disabled={isLoading}
+            >
+              <SelectTrigger id="time-frame">
                 <SelectValue placeholder="Select time frame" />
               </SelectTrigger>
               <SelectContent>
-                {timeFrames.map(timeFrame => (
-                  <SelectItem key={timeFrame} value={timeFrame}>{timeFrame}</SelectItem>
-                ))}
+                <SelectItem value="weekly">Weekly</SelectItem>
+                <SelectItem value="monthly">Monthly</SelectItem>
+                <SelectItem value="quarterly">Quarterly</SelectItem>
               </SelectContent>
             </Select>
-            <Button 
-              onClick={onSubmit} 
-              disabled={!selectedLocation || !selectedProduct || !selectedTimeFrame}
-              className="w-full bg-pharma-600 hover:bg-pharma-700"
-            >
-              Generate Forecast
-            </Button>
           </div>
         </div>
+        
+        <Button
+          onClick={onSubmit}
+          className="w-full mt-6 bg-pharma-600 hover:bg-pharma-700"
+          disabled={!selectedLocation || !selectedProduct || isLoading}
+        >
+          {isLoading ? (
+            <>
+              <Loader className="mr-2 h-4 w-4 animate-spin" />
+              Generating Forecast...
+            </>
+          ) : (
+            "Generate Forecast"
+          )}
+        </Button>
       </CardContent>
     </Card>
   );

@@ -1,227 +1,191 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import MainLayout from '@/components/layout/MainLayout';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import ChatInterface from '@/components/ui/chatbot/ChatInterface';
-import { Link, useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, Database, Ship } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { BarChart3, TrendingUp, Ship, Truck, UploadCloud, Database } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
+import { loadSampleData } from '@/utils/loadSampleData';
 
 const Index = () => {
   const navigate = useNavigate();
-  
+  const [isLoadingSampleData, setIsLoadingSampleData] = React.useState(false);
+
+  const handleLoadSampleData = async () => {
+    try {
+      setIsLoadingSampleData(true);
+      await loadSampleData();
+    } catch (error) {
+      console.error("Error loading sample data:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load sample data",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoadingSampleData(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative py-20 overflow-hidden bg-background">
-          <div className="absolute inset-0 bg-pharma-pattern"></div>
-          <div className="container px-4 mx-auto relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="gradient-text">Data-Driven</span> Pharmaceutical Optimization
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                PharmaFlow AI connects manufacturers and customers with powerful insights about products, distribution efficiency, pricing, and demand.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
-                  onClick={() => navigate('/forecasting')}
-                >
-                  <BarChart3 className="h-5 w-5" />
-                  Demand Forecast
-                </Button>
-                <Button 
-                  size="lg"
-                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
-                  onClick={() => navigate('/pricing')}
-                >
-                  <TrendingUp className="h-5 w-5" />
-                  Price Prediction
-                </Button>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-                <Button 
-                  size="lg" 
-                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
-                  onClick={() => navigate('/shipment-mode')}
-                >
-                  <Ship className="h-5 w-5" />
-                  Shipment Mode Analysis
-                </Button>
-                <Button 
-                  size="lg"
-                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
-                  onClick={() => navigate('/freight')}
-                >
-                  <Truck className="h-5 w-5" />
-                  Freight Cost Analysis
-                </Button>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="flex items-center gap-2"
-                  onClick={() => navigate('/data-import')}
-                >
-                  <Upload className="h-5 w-5" />
-                  Data Import
-                </Button>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="flex items-center gap-2"
-                  onClick={() => navigate('/dashboard')}
-                >
-                  <LayoutDashboard className="h-5 w-5" />
-                  Dashboard
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Features Section */}
-        <section id="learn-more" className="py-16 bg-muted/30">
-          <div className="container px-4 mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Powered by Advanced Analytics</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Our platform leverages AI and machine learning to provide actionable insights for pharmaceutical manufacturing and distribution.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  title: "AI-Powered Chatbot",
-                  description: "Get instant answers about products, availability, pricing, and operational questions.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 15C21 16.1046 20.1046 17 19 17H7L3 21V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )
-                },
-                {
-                  title: "Demand Forecasting",
-                  description: "Visual representation of predicted demand for various pharmaceutical products.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21H3V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M21 9L13 13L9 7L3 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )
-                },
-                {
-                  title: "Freight Cost Analysis",
-                  description: "Track and compare freight charges across modes and suppliers for better logistics planning.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 3H1V16H16V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M16 8H20L23 11V16H16V8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M5.5 21C6.88071 21 8 19.8807 8 18.5C8 17.1193 6.88071 16 5.5 16C4.11929 16 3 17.1193 3 18.5C3 19.8807 4.11929 21 5.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M18.5 21C19.8807 21 21 19.8807 21 18.5C21 17.1193 19.8807 16 18.5 16C17.1193 16 16 17.1193 16 18.5C16 19.8807 17.1193 21 18.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )
-                },
-                {
-                  title: "Price Prediction",
-                  description: "Predict future prices of medicines based on current trends, market demand, and supply.",
-                  icon: (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 1V23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )
-                }
-              ].map((feature, index) => (
-                <Card key={index} className="card-hover">
-                  <CardContent className="p-6">
-                    <div className="h-10 w-10 bg-pharma-100 rounded-lg flex items-center justify-center text-pharma-600 mb-4">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* ChatBot Demo Section */}
-        <section className="py-16">
-          <div className="container px-4 mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Try Our AI Assistant</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Our AI-powered assistant can answer questions about pharmaceutical products, pricing, distribution, and more.
-              </p>
-            </div>
-            
-            <div className="max-w-3xl mx-auto">
-              <ChatInterface />
-            </div>
-          </div>
-        </section>
-        
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-pharma-600 to-secondary text-white">
-          <div className="container px-4 mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Optimize Your Pharmaceutical Operations?</h2>
-            <p className="mb-8 max-w-2xl mx-auto">
-              Join leading pharmaceutical companies already using PharmaFlow AI to transform their manufacturing and distribution processes.
+    <MainLayout
+      title="PharmaFlow.AI"
+      description="Advanced pharma supply chain analytics and optimization"
+    >
+      <div className="flex justify-end mb-6">
+        <Button 
+          variant="outline" 
+          className="flex items-center gap-2"
+          onClick={handleLoadSampleData}
+          disabled={isLoadingSampleData}
+        >
+          {isLoadingSampleData ? (
+            <>
+              <span className="animate-spin">⟳</span>
+              Loading Sample Data...
+            </>
+          ) : (
+            <>
+              <Database className="h-4 w-4" />
+              Load Sample Dataset
+            </>
+          )}
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card className="hover:border-pharma-500 transition-colors">
+          <CardHeader>
+            <BarChart3 className="h-8 w-8 text-pharma-600" />
+            <CardTitle className="mt-2">Demand Forecasting</CardTitle>
+            <CardDescription>Predict future product demand</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              Use machine learning-driven forecasting to optimize inventory planning.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          </CardContent>
+          <CardFooter>
+            <Button 
+              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              onClick={() => navigate('/forecasting')}
+            >
+              Explore
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <Card className="hover:border-pharma-500 transition-colors">
+          <CardHeader>
+            <TrendingUp className="h-8 w-8 text-pharma-600" />
+            <CardTitle className="mt-2">Price Prediction</CardTitle>
+            <CardDescription>Optimize pricing strategies</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              Analyze pricing trends to improve procurement decisions.
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button 
+              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              onClick={() => navigate('/pricing')}
+            >
+              Explore
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <Card className="hover:border-pharma-500 transition-colors">
+          <CardHeader>
+            <Ship className="h-8 w-8 text-pharma-600" />
+            <CardTitle className="mt-2">Shipment Mode Analysis</CardTitle>
+            <CardDescription>Optimize transport methods</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              Compare shipment modes to minimize costs and delivery times.
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button 
+              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              onClick={() => navigate('/shipment-mode')}
+            >
+              Explore
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <Card className="hover:border-pharma-500 transition-colors">
+          <CardHeader>
+            <Truck className="h-8 w-8 text-pharma-600" />
+            <CardTitle className="mt-2">Freight Cost Analysis</CardTitle>
+            <CardDescription>Optimize logistical expenses</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              Track and analyze freight costs across vendors and regions.
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button 
+              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              onClick={() => navigate('/freight')}
+            >
+              Explore
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+
+      <div className="mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Data Management</CardTitle>
+            <CardDescription>Import, export, and manage your supply chain data</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-2/3">
+              <p className="text-muted-foreground mb-4">
+                Use our data management tools to import your existing supply chain data, 
+                export analytics results, or input new data points for analysis.
+              </p>
+              
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center">
+                  <span className="bg-pharma-100 text-pharma-800 p-1 rounded-full mr-2">✓</span>
+                  Support for CSV, Excel, and JSON formats
+                </li>
+                <li className="flex items-center">
+                  <span className="bg-pharma-100 text-pharma-800 p-1 rounded-full mr-2">✓</span>
+                  Data validation and cleansing tools
+                </li>
+                <li className="flex items-center">
+                  <span className="bg-pharma-100 text-pharma-800 p-1 rounded-full mr-2">✓</span>
+                  Secure cloud storage for your datasets
+                </li>
+                <li className="flex items-center">
+                  <span className="bg-pharma-100 text-pharma-800 p-1 rounded-full mr-2">✓</span>
+                  Schedule automated data imports
+                </li>
+              </ul>
+            </div>
+            
+            <div className="w-full md:w-1/3 flex flex-col justify-center">
               <Button 
-                variant="secondary" 
-                size="lg"
-                onClick={() => navigate('/forecasting')}
-                className="flex items-center gap-2"
+                className="bg-pharma-600 hover:bg-pharma-700 mb-2 flex items-center gap-2"
+                onClick={() => navigate('/data-import')}
               >
-                <BarChart3 className="h-5 w-5" />
-                Demand Forecasting
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                onClick={() => navigate('/pricing')}
-              >
-                <TrendingUp className="h-5 w-5" />
-                Price Prediction
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                onClick={() => navigate('/freight')}
-              >
-                <Truck className="h-5 w-5" />
-                Freight Analysis
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                onClick={() => navigate('/shipment-mode')}
-              >
-                <Ship className="h-5 w-5" />
-                Shipment Mode
+                <UploadCloud className="h-4 w-4" />
+                Import Data
               </Button>
             </div>
-          </div>
-        </section>
-      </main>
-      
-      <Footer />
-    </div>
+          </CardContent>
+        </Card>
+      </div>
+    </MainLayout>
   );
 };
 

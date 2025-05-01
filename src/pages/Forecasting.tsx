@@ -1,39 +1,97 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Loader, Database } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 import ForecastForm from '@/components/forecasting/ForecastForm';
 import ForecastMetrics from '@/components/forecasting/ForecastMetrics';
 import ForecastChart from '@/components/forecasting/ForecastChart';
-import { toast } from "@/components/ui/use-toast";
+import { generateForecast } from '@/services/forecastingService';
+import { fetchFilterOptions } from '@/services/dataService';
 
 const Forecasting = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
-  const [selectedTimeFrame, setSelectedTimeFrame] = useState<string>("");
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState<string>("monthly");
   const [showResults, setShowResults] = useState<boolean>(false);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
+  const [forecastData, setForecastData] = useState<any>(null);
+  const [locations, setLocations] = useState<string[]>([]);
+  const [products, setProducts] = useState<string[]>([]);
   
-  const handleForecast = () => {
-    setShowResults(true);
+  // Fetch filter options when component mounts
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const filterOptions = await fetchFilterOptions();
+        setLocations(filterOptions.countries);
+        setProducts(filterOptions.productGroups);
+      } catch (error) {
+        console.error("Error fetching filter options:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load filter options",
+          variant: "destructive"
+        });
+      }
+    };
+    
+    fetchFilters();
+  }, []);
+  
+  const handleForecast = async () => {
+    try {
+      setIsLoadingData(true);
+      
+      const result = await generateForecast(
+        selectedProduct,
+        selectedLocation,
+        selectedTimeFrame
+      );
+      
+      setForecastData(result);
+      setShowResults(true);
+    } catch (error) {
+      console.error("Error generating forecast:", error);
+      toast({
+        title: "Forecast Error",
+        description: error instanceof Error ? error.message : "Failed to generate forecast",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoadingData(false);
+    }
   };
   
   const loadSampleData = async () => {
     try {
       setIsLoadingData(true);
       
-      // Simulate loading sample data
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Set some default values
+      if (!selectedProduct && products.length > 0) {
+        setSelectedProduct(products[0]);
+      }
+      
+      if (!selectedLocation && locations.length > 0) {
+        setSelectedLocation(locations[0]);
+      }
+      
+      // Generate forecast with sample data
+      const result = await generateForecast(
+        selectedProduct || "Sample Product",
+        selectedLocation || "Sample Location",
+        selectedTimeFrame
+      );
+      
+      setForecastData(result);
+      setShowResults(true);
       
       toast({
         title: "Sample data loaded successfully",
         description: "You can now use the forecasting features with sample data",
       });
-      
-      // Automatically show results with sample data
-      setShowResults(true);
     } catch (error) {
       console.error("Error loading sample data:", error);
       toast({
@@ -72,9 +130,12 @@ const Forecasting = () => {
         setSelectedLocation={setSelectedLocation}
         setSelectedProduct={setSelectedProduct}
         setSelectedTimeFrame={setSelectedTimeFrame}
+        locations={locations}
+        products={products}
+        isLoading={isLoadingData}
       />
       
-      {showResults && (
+      {showResults && forecastData && (
         <Tabs defaultValue="metrics" className="w-full">
           <TabsList className="mb-4">
             <TabsTrigger value="metrics">Metrics</TabsTrigger>
@@ -82,11 +143,20 @@ const Forecasting = () => {
           </TabsList>
           
           <TabsContent value="metrics">
-            <ForecastMetrics product={selectedProduct} location={selectedLocation} />
+            <ForecastMetrics 
+              product={selectedProduct} 
+              location={selectedLocation} 
+              metrics={forecastData.metrics}
+            />
           </TabsContent>
           
           <TabsContent value="visualization">
-            <ForecastChart product={selectedProduct} location={selectedLocation} />
+            <ForecastChart 
+              product={selectedProduct} 
+              location={selectedLocation} 
+              historical={forecastData.historical}
+              forecast={forecastData.forecast}
+            />
           </TabsContent>
         </Tabs>
       )}
