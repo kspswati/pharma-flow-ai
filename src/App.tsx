@@ -14,6 +14,9 @@ import Pricing from "./pages/Pricing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DataImport from "./pages/DataImport";
+import FreightAnalysis from "./pages/FreightAnalysis";
+import ChatbotPage from "./pages/ChatbotPage";
+import CountryAnalysis from "./pages/CountryAnalysis";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +36,9 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/data-import" element={<DataImport />} />
+              <Route path="/freight" element={<FreightAnalysis />} />
+              <Route path="/chatbot" element={<ChatbotPage />} />
+              <Route path="/country-analysis" element={<CountryAnalysis />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

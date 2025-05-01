@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatInterface from '@/components/ui/chatbot/ChatInterface';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp } from 'lucide-react';
+import { BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, Database } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -44,6 +45,26 @@ const Index = () => {
                   Price Prediction
                 </Button>
               </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="flex items-center gap-2"
+                  onClick={() => navigate('/data-import')}
+                >
+                  <Upload className="h-5 w-5" />
+                  Data Import
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="flex items-center gap-2"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  <LayoutDashboard className="h-5 w-5" />
+                  Dashboard
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -80,18 +101,14 @@ const Index = () => {
                   )
                 },
                 {
-                  title: "Data Visualization",
-                  description: "Interactive graphs showing vendor performance, distribution trends, and supply chain bottlenecks.",
+                  title: "Freight Cost Analysis",
+                  description: "Track and compare freight charges across modes and suppliers for better logistics planning.",
                   icon: (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 18V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M4.93 4.93L7.76 7.76" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M16.24 16.24L19.07 19.07" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M18 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M4.93 19.07L7.76 16.24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M16.24 7.76L19.07 4.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M16 3H1V16H16V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M16 8H20L23 11V16H16V8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M5.5 21C6.88071 21 8 19.8807 8 18.5C8 17.1193 6.88071 16 5.5 16C4.11929 16 3 17.1193 3 18.5C3 19.8807 4.11929 21 5.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M18.5 21C19.8807 21 21 19.8807 21 18.5C21 17.1193 19.8807 16 18.5 16C17.1193 16 16 17.1193 16 18.5C16 19.8807 17.1193 21 18.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   )
                 },
@@ -143,7 +160,7 @@ const Index = () => {
             <p className="mb-8 max-w-2xl mx-auto">
               Join leading pharmaceutical companies already using PharmaFlow AI to transform their manufacturing and distribution processes.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <Button 
                 variant="secondary" 
                 size="lg"
@@ -151,7 +168,7 @@ const Index = () => {
                 className="flex items-center gap-2"
               >
                 <BarChart3 className="h-5 w-5" />
-                Try Demand Forecasting
+                Demand Forecasting
               </Button>
               <Button 
                 variant="outline" 
@@ -160,7 +177,16 @@ const Index = () => {
                 onClick={() => navigate('/pricing')}
               >
                 <TrendingUp className="h-5 w-5" />
-                Explore Price Prediction
+                Price Prediction
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                onClick={() => navigate('/dashboard')}
+              >
+                <LayoutDashboard className="h-5 w-5" />
+                Dashboard
               </Button>
             </div>
           </div>

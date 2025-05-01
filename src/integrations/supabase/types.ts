@@ -9,6 +9,114 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      "PharmaFlow.AI": {
+        Row: {
+          asndn_: string | null
+          brand: string | null
+          country: string | null
+          delivered_to_client_date: string | null
+          delivery_recorded_date: string | null
+          dosage: string | null
+          dosage_form: string | null
+          first_line_designation: string | null
+          freight_cost_usd: string | null
+          fulfill_via: string | null
+          id: number | null
+          item_description: string | null
+          line_item_insurance_usd: string | null
+          line_item_quantity: number | null
+          line_item_value: number | null
+          managed_by: string | null
+          manufacturing_site: string | null
+          moleculetest_type: string | null
+          pack_price: number | null
+          po__so_: string | null
+          po_sent_to_vendor_date: string | null
+          pq_: string | null
+          pq_first_sent_to_client_date: string | null
+          product_group: string | null
+          project_code: string | null
+          scheduled_delivery_date: string | null
+          shipment_mode: string | null
+          sub_classification: string | null
+          unit_of_measure_per_pack: number | null
+          unit_price: number | null
+          vendor: string | null
+          vendor_inco_term: string | null
+          weight_kilograms: string | null
+        }
+        Insert: {
+          asndn_?: string | null
+          brand?: string | null
+          country?: string | null
+          delivered_to_client_date?: string | null
+          delivery_recorded_date?: string | null
+          dosage?: string | null
+          dosage_form?: string | null
+          first_line_designation?: string | null
+          freight_cost_usd?: string | null
+          fulfill_via?: string | null
+          id?: number | null
+          item_description?: string | null
+          line_item_insurance_usd?: string | null
+          line_item_quantity?: number | null
+          line_item_value?: number | null
+          managed_by?: string | null
+          manufacturing_site?: string | null
+          moleculetest_type?: string | null
+          pack_price?: number | null
+          po__so_?: string | null
+          po_sent_to_vendor_date?: string | null
+          pq_?: string | null
+          pq_first_sent_to_client_date?: string | null
+          product_group?: string | null
+          project_code?: string | null
+          scheduled_delivery_date?: string | null
+          shipment_mode?: string | null
+          sub_classification?: string | null
+          unit_of_measure_per_pack?: number | null
+          unit_price?: number | null
+          vendor?: string | null
+          vendor_inco_term?: string | null
+          weight_kilograms?: string | null
+        }
+        Update: {
+          asndn_?: string | null
+          brand?: string | null
+          country?: string | null
+          delivered_to_client_date?: string | null
+          delivery_recorded_date?: string | null
+          dosage?: string | null
+          dosage_form?: string | null
+          first_line_designation?: string | null
+          freight_cost_usd?: string | null
+          fulfill_via?: string | null
+          id?: number | null
+          item_description?: string | null
+          line_item_insurance_usd?: string | null
+          line_item_quantity?: number | null
+          line_item_value?: number | null
+          managed_by?: string | null
+          manufacturing_site?: string | null
+          moleculetest_type?: string | null
+          pack_price?: number | null
+          po__so_?: string | null
+          po_sent_to_vendor_date?: string | null
+          pq_?: string | null
+          pq_first_sent_to_client_date?: string | null
+          product_group?: string | null
+          project_code?: string | null
+          scheduled_delivery_date?: string | null
+          shipment_mode?: string | null
+          sub_classification?: string | null
+          unit_of_measure_per_pack?: number | null
+          unit_price?: number | null
+          vendor?: string | null
+          vendor_inco_term?: string | null
+          weight_kilograms?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company: string | null

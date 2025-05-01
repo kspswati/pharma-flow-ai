@@ -1,8 +1,9 @@
+
 import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, BarChart3, TrendingUp, LayoutDashboard } from "lucide-react";
+import { Home, BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, MessageCircle } from "lucide-react";
 import { Link, useLocation } from 'react-router-dom';
 
 interface MainLayoutProps {
@@ -19,6 +20,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description })
     { title: "Demand Forecasting", url: "/forecasting", icon: BarChart3 },
     { title: "Price Prediction", url: "/pricing", icon: TrendingUp },
     { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+    { title: "Data Import", url: "/data-import", icon: Upload },
+    { title: "Freight Analysis", url: "/freight", icon: Truck },
+    { title: "AI Assistant", url: "/chatbot", icon: MessageCircle },
   ];
 
   return (

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from '../icons/Logo';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
+import { BarChart3, TrendingUp, LayoutDashboard, Upload } from 'lucide-react';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,26 +14,29 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Logo />
-        
-        <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-sm font-medium transition-colors hover:text-pharma-600">
-            Home
+        <div className="flex items-center">
+          <Link to="/" className="mr-6">
+            <Logo />
           </Link>
-          {user && (
-            <>
-              <Link to="/forecasting" className="text-sm font-medium transition-colors hover:text-pharma-600">
-                Forecasting
-              </Link>
-              <Link to="/pricing" className="text-sm font-medium transition-colors hover:text-pharma-600">
-                Pricing
-              </Link>
-              <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
-                Dashboard
-              </Link>
-            </>
-          )}
-        </nav>
+          
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Home
+            </Link>
+            <Link to="/forecasting" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Forecasting
+            </Link>
+            <Link to="/pricing" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Pricing
+            </Link>
+            <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Dashboard
+            </Link>
+            <Link to="/data-import" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Data Import
+            </Link>
+          </nav>
+        </div>
         
         <div className="flex items-center space-x-2">
           <ThemeToggle />
