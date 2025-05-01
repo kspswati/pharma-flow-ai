@@ -17,6 +17,7 @@ import DataImport from "./pages/DataImport";
 import FreightAnalysis from "./pages/FreightAnalysis";
 import ChatbotPage from "./pages/ChatbotPage";
 import CountryAnalysis from "./pages/CountryAnalysis";
+import ShipmentModeAnalysis from "./pages/ShipmentModeAnalysis";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
               <Route path="/freight" element={<FreightAnalysis />} />
               <Route path="/chatbot" element={<ChatbotPage />} />
               <Route path="/country-analysis" element={<CountryAnalysis />} />
+              <Route path="/shipment-mode" element={<ShipmentModeAnalysis />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

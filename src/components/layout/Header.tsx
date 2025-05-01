@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from '../icons/Logo';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
-import { BarChart3, TrendingUp, LayoutDashboard, Upload } from 'lucide-react';
+import { BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, Ship } from 'lucide-react';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -34,6 +34,12 @@ const Header = () => {
             </Link>
             <Link to="/data-import" className="text-sm font-medium transition-colors hover:text-pharma-600">
               Data Import
+            </Link>
+            <Link to="/freight" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Freight
+            </Link>
+            <Link to="/shipment-mode" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Shipment Mode
             </Link>
           </nav>
         </div>
