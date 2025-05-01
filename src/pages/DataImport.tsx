@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
 import * as XLSX from 'xlsx';
 import { supabase } from '@/integrations/supabase/client';
 import MainLayout from '@/components/layout/MainLayout';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +10,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { FileText, Upload, Database, Loader } from 'lucide-react';
+import { FileText, Upload, Database, Loader, FileCheck, UploadCloud } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import ExcelUploadPreview from '@/components/data-management/ExcelUploadPreview';
+import { ExcelUploadPreview } from '@/components/data-management/ExcelUploadPreview';
 import { insertBulkPharmaRecords } from '@/services/dataService';
 import { loadSampleData } from '@/utils/loadSampleData';
 
@@ -170,7 +169,8 @@ const DataManagement = () => {
         freight_cost_usd: recordFormData.freight_cost_usd ? parseFloat(recordFormData.freight_cost_usd) : null
       };
       
-      await insertPharmaRecord(recordToInsert);
+      // Use the bulk insert function with a single record
+      await insertBulkPharmaRecords([recordToInsert]);
       
       toast({
         title: "Record Submitted",
