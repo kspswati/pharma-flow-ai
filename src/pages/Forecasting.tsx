@@ -1,13 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Loader, Database } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import ForecastForm from '@/components/forecasting/ForecastForm';
-import ForecastMetrics from '@/components/forecasting/ForecastMetrics';
-import ForecastChart from '@/components/forecasting/ForecastChart';
+import ForecastResults from '@/components/forecasting/ForecastResults';
+import SampleDataButton from '@/components/forecasting/SampleDataButton';
 import { generateForecast } from '@/services/forecastingService';
 import { fetchFilterOptions } from '@/services/dataService';
 
@@ -106,21 +103,7 @@ const Forecasting = () => {
   
   return (
     <MainLayout title="Demand Forecasting" description="Predict and analyze product demand across markets">
-      <div className="flex justify-end mb-6">
-        <Button 
-          variant="outline" 
-          className="flex items-center gap-2"
-          onClick={loadSampleData}
-          disabled={isLoadingData}
-        >
-          {isLoadingData ? (
-            <Loader className="h-4 w-4 animate-spin" />
-          ) : (
-            <Database className="h-4 w-4" />
-          )}
-          {isLoadingData ? "Loading Sample Data..." : "Load Sample Data"}
-        </Button>
-      </div>
+      <SampleDataButton isLoading={isLoadingData} onClick={loadSampleData} />
       
       <ForecastForm
         onSubmit={handleForecast}
@@ -135,31 +118,12 @@ const Forecasting = () => {
         isLoading={isLoadingData}
       />
       
-      {showResults && forecastData && (
-        <Tabs defaultValue="metrics" className="w-full">
-          <TabsList className="mb-4">
-            <TabsTrigger value="metrics">Metrics</TabsTrigger>
-            <TabsTrigger value="visualization">Visualization</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="metrics">
-            <ForecastMetrics 
-              product={selectedProduct} 
-              location={selectedLocation} 
-              metrics={forecastData.metrics}
-            />
-          </TabsContent>
-          
-          <TabsContent value="visualization">
-            <ForecastChart 
-              product={selectedProduct} 
-              location={selectedLocation} 
-              historical={forecastData.historical}
-              forecast={forecastData.forecast}
-            />
-          </TabsContent>
-        </Tabs>
-      )}
+      <ForecastResults 
+        showResults={showResults}
+        forecastData={forecastData}
+        selectedProduct={selectedProduct}
+        selectedLocation={selectedLocation}
+      />
     </MainLayout>
   );
 };
