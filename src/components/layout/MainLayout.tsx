@@ -19,12 +19,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description })
     { title: "Home", url: "/", icon: Home },
     { title: "Demand Forecasting", url: "/forecasting", icon: BarChart3 },
     { title: "Price Prediction", url: "/pricing", icon: TrendingUp },
-    { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-    { title: "Data Import", url: "/data-import", icon: Upload },
     { title: "Freight Analysis", url: "/freight", icon: Truck },
     { title: "Shipment Mode Analysis", url: "/shipment-mode", icon: Ship },
     { title: "Country Analysis", url: "/country-analysis", icon: Globe },
+    { title: "Data Import", url: "/data-import", icon: Upload },
     { title: "AI Assistant", url: "/chatbot", icon: MessageCircle },
+    { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   ];
 
   return (

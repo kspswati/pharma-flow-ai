@@ -29,17 +29,17 @@ const Header = () => {
             <Link to="/pricing" className="text-sm font-medium transition-colors hover:text-pharma-600">
               Pricing
             </Link>
-            <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
-              Dashboard
-            </Link>
-            <Link to="/data-import" className="text-sm font-medium transition-colors hover:text-pharma-600">
-              Data Import
-            </Link>
             <Link to="/freight" className="text-sm font-medium transition-colors hover:text-pharma-600">
               Freight
             </Link>
             <Link to="/shipment-mode" className="text-sm font-medium transition-colors hover:text-pharma-600">
               Shipment Mode
+            </Link>
+            <Link to="/data-import" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Data Import
+            </Link>
+            <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-pharma-600">
+              Dashboard
             </Link>
           </nav>
         </div>

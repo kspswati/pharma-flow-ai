@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatInterface from '@/components/ui/chatbot/ChatInterface';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, Database } from 'lucide-react';
+import { BarChart3, TrendingUp, LayoutDashboard, Upload, Truck, Database, Ship } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -43,6 +43,24 @@ const Index = () => {
                 >
                   <TrendingUp className="h-5 w-5" />
                   Price Prediction
+                </Button>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+                <Button 
+                  size="lg" 
+                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
+                  onClick={() => navigate('/shipment-mode')}
+                >
+                  <Ship className="h-5 w-5" />
+                  Shipment Mode Analysis
+                </Button>
+                <Button 
+                  size="lg"
+                  className="bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2"
+                  onClick={() => navigate('/freight')}
+                >
+                  <Truck className="h-5 w-5" />
+                  Freight Cost Analysis
                 </Button>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
@@ -160,7 +178,7 @@ const Index = () => {
             <p className="mb-8 max-w-2xl mx-auto">
               Join leading pharmaceutical companies already using PharmaFlow AI to transform their manufacturing and distribution processes.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
               <Button 
                 variant="secondary" 
                 size="lg"
@@ -183,10 +201,19 @@ const Index = () => {
                 variant="outline" 
                 size="lg" 
                 className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/freight')}
               >
-                <LayoutDashboard className="h-5 w-5" />
-                Dashboard
+                <Truck className="h-5 w-5" />
+                Freight Analysis
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                onClick={() => navigate('/shipment-mode')}
+              >
+                <Ship className="h-5 w-5" />
+                Shipment Mode
               </Button>
             </div>
           </div>
