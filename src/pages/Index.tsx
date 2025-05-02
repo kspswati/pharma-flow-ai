@@ -55,20 +55,20 @@ const Index = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card className="hover:border-pharma-500 transition-colors">
+        <Card className="hover:border-pharma-500 transition-colors flex flex-col">
           <CardHeader>
             <BarChart3 className="h-8 w-8 text-pharma-600" />
             <CardTitle className="mt-2">Demand Forecasting</CardTitle>
             <CardDescription>Predict future product demand</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-grow">
             <p className="text-sm text-muted-foreground">
               Use machine learning-driven forecasting to optimize inventory planning.
             </p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-0 pb-6">
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/forecasting')}
             >
               Explore
@@ -76,20 +76,20 @@ const Index = () => {
           </CardFooter>
         </Card>
 
-        <Card className="hover:border-pharma-500 transition-colors">
+        <Card className="hover:border-pharma-500 transition-colors flex flex-col">
           <CardHeader>
             <TrendingUp className="h-8 w-8 text-pharma-600" />
             <CardTitle className="mt-2">Price Prediction</CardTitle>
             <CardDescription>Optimize pricing strategies</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-grow">
             <p className="text-sm text-muted-foreground">
               Analyze pricing trends to improve procurement decisions.
             </p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-0 pb-6">
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/pricing')}
             >
               Explore
@@ -97,20 +97,20 @@ const Index = () => {
           </CardFooter>
         </Card>
 
-        <Card className="hover:border-pharma-500 transition-colors">
+        <Card className="hover:border-pharma-500 transition-colors flex flex-col">
           <CardHeader>
             <Ship className="h-8 w-8 text-pharma-600" />
             <CardTitle className="mt-2">Shipment Mode Analysis</CardTitle>
             <CardDescription>Optimize transport methods</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-grow">
             <p className="text-sm text-muted-foreground">
               Compare shipment modes to minimize costs and delivery times.
             </p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-0 pb-6">
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/shipment-mode')}
             >
               Explore
@@ -118,20 +118,20 @@ const Index = () => {
           </CardFooter>
         </Card>
 
-        <Card className="hover:border-pharma-500 transition-colors">
+        <Card className="hover:border-pharma-500 transition-colors flex flex-col">
           <CardHeader>
             <Truck className="h-8 w-8 text-pharma-600" />
             <CardTitle className="mt-2">Freight Cost Analysis</CardTitle>
             <CardDescription>Optimize logistical expenses</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-grow">
             <p className="text-sm text-muted-foreground">
               Track and analyze freight costs across vendors and regions.
             </p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-0 pb-6">
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/freight')}
             >
               Explore
@@ -175,7 +175,7 @@ const Index = () => {
             
             <div className="w-full md:w-1/3 flex flex-col justify-center">
               <Button 
-                className="bg-pharma-600 hover:bg-pharma-700 mb-2 flex items-center justify-center gap-2"
+                className="bg-pharma-600 hover:bg-pharma-700 mb-2 flex items-center justify-center gap-2 py-5"
                 onClick={() => navigate('/data-import')}
               >
                 <UploadCloud className="h-4 w-4" />
