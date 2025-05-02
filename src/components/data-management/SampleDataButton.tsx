@@ -10,21 +10,19 @@ interface SampleDataButtonProps {
 
 const SampleDataButton: React.FC<SampleDataButtonProps> = ({ isLoading, onClick }) => {
   return (
-    <div className="flex justify-end mb-6">
-      <Button 
-        variant="outline" 
-        className="flex items-center gap-2"
-        onClick={onClick}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <Loader className="h-4 w-4 animate-spin" />
-        ) : (
-          <Database className="h-4 w-4" />
-        )}
-        {isLoading ? "Loading Sample Data..." : "Load Sample Data"}
-      </Button>
-    </div>
+    <Button 
+      variant="default" 
+      className="w-full md:w-auto bg-pharma-600 hover:bg-pharma-700 flex items-center gap-2 py-5"
+      onClick={onClick}
+      disabled={isLoading}
+    >
+      {isLoading ? (
+        <Loader className="h-4 w-4 animate-spin" />
+      ) : (
+        <Database className="h-4 w-4" />
+      )}
+      {isLoading ? "Loading Sample Data..." : "Load Sample Data"}
+    </Button>
   );
 };
 

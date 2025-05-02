@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { BarChart3, TrendingUp, Ship, Truck, UploadCloud, Database } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { loadSampleData } from '@/utils/loadSampleData';
+import SampleDataButton from '@/components/data-management/SampleDataButton';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const Index = () => {
     try {
       setIsLoadingSampleData(true);
       await loadSampleData();
+      toast({
+        title: "Success",
+        description: "Sample data loaded successfully! You can now explore all features with visualizations.",
+      });
     } catch (error) {
       console.error("Error loading sample data:", error);
       toast({
@@ -33,26 +38,26 @@ const Index = () => {
       title="PharmaFlow.AI"
       description="Advanced pharma supply chain analytics and optimization"
     >
-      <div className="flex justify-end mb-6">
-        <Button 
-          variant="outline" 
-          className="flex items-center gap-2"
-          onClick={handleLoadSampleData}
-          disabled={isLoadingSampleData}
-        >
-          {isLoadingSampleData ? (
-            <>
-              <span className="animate-spin">⟳</span>
-              Loading Sample Data...
-            </>
-          ) : (
-            <>
-              <Database className="h-4 w-4" />
-              Load Sample Dataset
-            </>
-          )}
-        </Button>
-      </div>
+      <Card className="mb-6 border-pharma-300 bg-pharma-50/50">
+        <CardHeader className="pb-2">
+          <CardTitle>Get Started with Sample Data</CardTitle>
+          <CardDescription>
+            Load sample data to visualize and explore all features of the platform
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pb-2">
+          <p className="text-sm text-muted-foreground">
+            Click the button below to load pharmaceutical supply chain sample data that will populate all dashboards and visualizations.
+            This will allow you to explore demand forecasting, price predictions, freight analysis, and more.
+          </p>
+        </CardContent>
+        <CardFooter>
+          <SampleDataButton 
+            isLoading={isLoadingSampleData} 
+            onClick={handleLoadSampleData} 
+          />
+        </CardFooter>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="hover:border-pharma-500 transition-colors flex flex-col">
@@ -71,7 +76,7 @@ const Index = () => {
               className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/forecasting')}
             >
-              Explore
+              <span className="mx-auto">Explore</span>
             </Button>
           </CardFooter>
         </Card>
@@ -92,7 +97,7 @@ const Index = () => {
               className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/pricing')}
             >
-              Explore
+              <span className="mx-auto">Explore</span>
             </Button>
           </CardFooter>
         </Card>
@@ -113,7 +118,7 @@ const Index = () => {
               className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/shipment-mode')}
             >
-              Explore
+              <span className="mx-auto">Explore</span>
             </Button>
           </CardFooter>
         </Card>
@@ -134,7 +139,7 @@ const Index = () => {
               className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center py-5" 
               onClick={() => navigate('/freight')}
             >
-              Explore
+              <span className="mx-auto">Explore</span>
             </Button>
           </CardFooter>
         </Card>
@@ -179,7 +184,7 @@ const Index = () => {
                 onClick={() => navigate('/data-import')}
               >
                 <UploadCloud className="h-4 w-4" />
-                Import Data
+                <span className="mx-auto">Import Data</span>
               </Button>
             </div>
           </CardContent>
