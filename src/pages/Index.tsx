@@ -68,7 +68,7 @@ const Index = () => {
           </CardContent>
           <CardFooter>
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
               onClick={() => navigate('/forecasting')}
             >
               Explore
@@ -89,7 +89,7 @@ const Index = () => {
           </CardContent>
           <CardFooter>
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
               onClick={() => navigate('/pricing')}
             >
               Explore
@@ -110,7 +110,7 @@ const Index = () => {
           </CardContent>
           <CardFooter>
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
               onClick={() => navigate('/shipment-mode')}
             >
               Explore
@@ -131,7 +131,7 @@ const Index = () => {
           </CardContent>
           <CardFooter>
             <Button 
-              className="w-full bg-pharma-600 hover:bg-pharma-700" 
+              className="w-full bg-pharma-600 hover:bg-pharma-700 flex items-center justify-center" 
               onClick={() => navigate('/freight')}
             >
               Explore
@@ -175,7 +175,7 @@ const Index = () => {
             
             <div className="w-full md:w-1/3 flex flex-col justify-center">
               <Button 
-                className="bg-pharma-600 hover:bg-pharma-700 mb-2 flex items-center gap-2"
+                className="bg-pharma-600 hover:bg-pharma-700 mb-2 flex items-center justify-center gap-2"
                 onClick={() => navigate('/data-import')}
               >
                 <UploadCloud className="h-4 w-4" />

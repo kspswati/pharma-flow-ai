@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 def render_homepage():
@@ -34,6 +35,7 @@ def render_homepage():
                 transition: all 0.3s ease;
                 cursor: pointer;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                text-align: center;
             }
             .service-card:hover {
                 background-color: #009dc2;
@@ -43,11 +45,13 @@ def render_homepage():
                 margin: 0;
                 font-size: 1.3rem;
                 color: white;
+                text-align: center;
             }
             .service-card p {
                 margin-top: 0.3rem;
                 color: white;
                 font-size: 0.95rem;
+                text-align: center;
             }
         </style>
     """, unsafe_allow_html=True)
