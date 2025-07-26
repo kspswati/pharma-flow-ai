@@ -1,73 +1,60 @@
-# Welcome to your Lovable project
+# Data-Driven Optimization of Pharma Manufacturing and Distribution
 
-## Project info
+A Streamlit app for **pharma supply-chain analytics** with live Google Sheets integration, AI-driven chatbot (Google Gemini), demand forecasting (SARIMA & deep learning), visualization, and unit-price prediction.
+
+---
+
+## 🚀 Features
+
+1. **🤖 PharmaBot Chatbot**  
+   - Ask any question about your shipment data  
+   - Context-aware RAG pipeline with embedding-based chunk retrieval  
+   - Structured JSON prompts for accurate, data-driven answers  
+   - Follow-up memory and “Generate Visualization” toggle  
+
+2. **📈 Demand Forecasting**  
+   - Traditional SARIMAX forecasts with reliability scoring   
+   - Debug info, model metrics (RMSE, MAPE, R²), and confidence indicator  
+
+3. **📊 Interactive Visualization**  
+   - Timeline slicers, multi-type charts (line, bar, histogram, pie, box, heatmap)  
+   - Filter by date, product, vendor, or any dimension  
+   - Responsive design and download via chart toolbar  
+
+4. **💰 Unit Price Prediction**  
+   - RandomForest regression for per-unit price  
+   - Combined with time-series pack-price forecasting  
+   - Key driver analysis and prediction intervals  
+
+5. **🔄 Live Data Backend**  
+   - Google Sheets API (no manual CSV uploads)  
+   - Service-account auth for secure, real-time sync  
+   - Outlier removal built into loader  
+
+# Website created using Lovable 
+
+## Sample Website Idea: 
 
 **URL**: https://lovable.dev/projects/7e2a83ed-fd08-480f-a4b6-345796d6fd4e
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🛠️ Installation & Setup
 
-**Use Lovable**
+```bash
+# 1. Clone the repo
+git clone https://github.com/Praj460/Chatbot-for-supply-chain-Analysis.git
+cd Chatbot-for-supply-chain-Analysis
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7e2a83ed-fd08-480f-a4b6-345796d6fd4e) and start prompting.
+# 2. Create & activate a virtual environment
+python3 -m venv venv
+# macOS/Linux
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
 
-Changes made via Lovable will be committed automatically to this repo.
+# 3. Install dependencies
+pip install -r requirements.txt
 
-**Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/7e2a83ed-fd08-480f-a4b6-345796d6fd4e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
