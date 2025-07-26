@@ -33,7 +33,7 @@ A Streamlit app for **pharma supply-chain analytics** with live Google Sheets in
 
 # Website created using Lovable 
 
-## Sample Website Idea: 
+## Sample Website: 
 
 **URL**: https://lovable.dev/projects/7e2a83ed-fd08-480f-a4b6-345796d6fd4e
 
