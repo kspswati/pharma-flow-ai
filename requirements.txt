@@ -1,0 +1,13 @@
+pandas
+numpy
+streamlit
+google-generativeai
+python-dotenv
+sentence-transformers
+json5
+plotly
+chardet
+statsmodels
+scikit-learn
+gspread
+oauth2client
